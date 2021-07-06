@@ -43,12 +43,10 @@ resource digitalocean_droplet reverse-proxy {
             "apt upgrade - y",
             "apt install nginx - y",
             "systemctl start nginx",
-            "systemctl enable nginx"
+            "systemctl enable nginx",
+            "nginx -s reload"
         ]
     }
-
-
-    # /usr/sbin/nginx -s reload
 }
 
 
@@ -63,6 +61,14 @@ resource local_file external_ports{
     filename = "external_ports.txt"
     content  = templatefile("./external_ports.txt.tpl", {
         ports = [for c in docker_container.cont_dov: "${c.ports[0].external}/${c.ports[0].protocol}"]
+        }
+    )
+}
+
+resource local_file nginx_conf{
+    filename = "nginx.conf"
+    content  = templatefile("./nginx.conf.tpl", {
+        endpoint = [for c in docker_container.cont_dov: "${digitalocean_droplet.reverse-proxy.ipv4_address}:${c.ports[0].external}"]
         }
     )
 }

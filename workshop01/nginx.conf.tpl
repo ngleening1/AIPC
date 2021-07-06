@@ -1,0 +1,25 @@
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 768;
+}
+
+http: {
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+    gzip on;
+    upstream apps {
+        least_conn;
+        %{~for each_endpoint in endpoint}
+        server ${each_endpoint};
+        %{endfor}
+    }
+    server {
+        listen 80;
+        location / {
+            proxy_pass http://apps;
+        }
+    }
+}  
