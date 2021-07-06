@@ -1,0 +1,8 @@
+docker_host = "tcp://139.59.249.2:2376"
+docker_cert_path = "C:/Users/Lee Ning/.docker/machine/machines/my-docker"
+DO_token = "349604785595e31e10c6b2ff68cafde4a6f42bea37c1957dd5148b06f4266233"
+public_key = "C:/Users/Lee Ning/.docker/machine/machines/my-docker/id_rsa.pub"
+private_key = "C:/Users/Lee Ning/.docker/machine/machines/my-docker/key.pem"
+image = "ubuntu-20-04-x64"
+region = "sgp1"
+size = "s-1vcpu-1gb"
