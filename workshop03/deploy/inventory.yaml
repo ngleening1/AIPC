@@ -1,0 +1,9 @@
+all:
+    hosts:
+        code-server:
+            ansible_host: 134.209.100.81
+            ansible_user: root
+            ansible_connection: ssh
+            ansible_private_key_file: ../../../.ssh/fred
+            cs_password: changeit
+            cs_domain: code-134.209.100.81.nip.io
